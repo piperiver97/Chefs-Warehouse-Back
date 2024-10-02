@@ -1,26 +1,35 @@
 package dev.felipe.chefs_warehouse.models;
 
-import jakarta.persistence.*; // Cambiado de javax.persistence a jakarta.persistence
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
 public class Ingrediente {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
-    private Double cantidadDisponible;
-    private String unidadMedida;
+    private int cantidad;
+    private LocalDate fechaDeCaducidad;
+    private String almacenamiento;
 
-    @Column(columnDefinition = "DATE")
-    private LocalDate fechaVencimiento;
+    // Nueva columna para la categoría
+    private String categoria;
+    private String imagen;     // Nuevo campo para la imagen
 
-    private Double costoPorUnidad;
+    public String getImagen() {
+        return imagen;
+    }
 
-    public Ingrediente() {}
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -37,35 +46,35 @@ public class Ingrediente {
         this.nombre = nombre;
     }
 
-    public Double getCantidadDisponible() {
-        return cantidadDisponible;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setCantidadDisponible(Double cantidadDisponible) {
-        this.cantidadDisponible = cantidadDisponible;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public String getUnidadMedida() {
-        return unidadMedida;
+    public LocalDate getFechaDeCaducidad() {
+        return fechaDeCaducidad;
     }
 
-    public void setUnidadMedida(String unidadMedida) {
-        this.unidadMedida = unidadMedida;
+    public void setFechaDeCaducidad(LocalDate fechaDeCaducidad) {
+        this.fechaDeCaducidad = fechaDeCaducidad;
     }
 
-    public LocalDate getFechaVencimiento() {
-        return fechaVencimiento;
+    public String getAlmacenamiento() {
+        return almacenamiento;
     }
 
-    public void setFechaVencimiento(LocalDate fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
+    public void setAlmacenamiento(String almacenamiento) {
+        this.almacenamiento = almacenamiento;
     }
 
-    public Double getCostoPorUnidad() {
-        return costoPorUnidad;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setCostoPorUnidad(Double costoPorUnidad) {
-        this.costoPorUnidad = costoPorUnidad;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

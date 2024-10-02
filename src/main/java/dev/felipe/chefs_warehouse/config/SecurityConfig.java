@@ -1,13 +1,11 @@
 package dev.felipe.chefs_warehouse.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-/* import org.springframework.security.crypto.password.NoOpPasswordEncoder; */
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -15,6 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.http.HttpMethod;
+
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -23,7 +22,6 @@ import dev.felipe.chefs_warehouse.services.JpaUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
 
     @Value("${api-endpoint}")
@@ -34,35 +32,34 @@ public class SecurityConfig {
     JpaUserDetailsService jpaUserDetailsService;
 
     public SecurityConfig(JpaUserDetailsService jpaUserDetailsService,
-            MyBasicAuthenticationEntryPoint basicEntryPoint) {
+                          MyBasicAuthenticationEntryPoint basicEntryPoint) {
         this.jpaUserDetailsService = jpaUserDetailsService;
         this.myBasicAuthenticationEntryPoint = basicEntryPoint;
-
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(cors -> cors.configurationSource(corsConfiguration()))
-                .csrf(csrf -> csrf.disable())
-                .formLogin(form -> form.disable())
+            .cors(cors -> cors.configurationSource(corsConfiguration()))
+            .csrf(csrf -> csrf.disable())
+            .formLogin(form -> form.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll() // Acceso a la consola H2
+                .requestMatchers(HttpMethod.GET, "/api/ingredientes/**").permitAll() // Permitir acceso a ingredientes sin autenticación
+                .requestMatchers(HttpMethod.GET, endpoint + "/login").hasAnyRole("ADMIN",  "USER") // Autenticación para login
+                .requestMatchers(HttpMethod.GET, "/api/v1/ingredientes/**").permitAll() // Permitir acceso a ingredientes sin autenticación
+                .requestMatchers(HttpMethod.POST, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para POST
+                .requestMatchers(HttpMethod.PUT, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para PUT
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para DELETE
 
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-            .requestMatchers(HttpMethod.GET, endpoint + "/search/action_type").permitAll()
-            .requestMatchers(HttpMethod.GET, endpoint + "/login").hasAnyRole("ADMIN","SALESMAN","USER")
-            .requestMatchers(HttpMethod.POST, endpoint + "/salesmen").hasAnyRole("ADMIN")
-            .requestMatchers(HttpMethod.GET, endpoint + "/salesmen").hasAnyRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE, endpoint + "/salesmen").hasAnyRole("ADMIN")
-            .anyRequest().authenticated())
+                .anyRequest().authenticated()) // Otras solicitudes requieren autenticación
+            .userDetailsService(jpaUserDetailsService)
+            .httpBasic(basic -> basic.authenticationEntryPoint(myBasicAuthenticationEntryPoint))
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
-                .userDetailsService(jpaUserDetailsService)
-                .httpBasic(basic -> basic.authenticationEntryPoint(myBasicAuthenticationEntryPoint))
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-
-        http.headers(header -> header.frameOptions(frame -> frame.sameOrigin()));
+        http.headers(header -> header.frameOptions(frame -> frame.sameOrigin())); // Permitir H2 frame
 
         return http.build();
     }
@@ -71,30 +68,22 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfiguration() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization"));
-
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // URL del frontend
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept")); // Encabezados permitidos
+        configuration.setExposedHeaders(Arrays.asList("Authorization")); // Encabezados expuestos al cliente
+    
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // Usa BCrypt para encriptar contraseñas
     }
 
     @Bean
     Base64Encoder base64Encoder() {
-        return new Base64Encoder();
+        return new Base64Encoder(); // Para el uso de codificación base64
     }
-
-    /*
-     * @Bean
-     * public PasswordEncoder passwordEncoder() {
-     * return NoOpPasswordEncoder.getInstance(); // Desactiva el encriptado
-     * }
-     */
-
 }

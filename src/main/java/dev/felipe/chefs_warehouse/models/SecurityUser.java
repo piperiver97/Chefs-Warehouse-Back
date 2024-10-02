@@ -1,5 +1,6 @@
 package dev.felipe.chefs_warehouse.models;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 
