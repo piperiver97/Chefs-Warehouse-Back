@@ -47,8 +47,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll() // Acceso a la consola H2
                 .requestMatchers(HttpMethod.GET, "/api/ingredientes/**").permitAll() // Permitir acceso a ingredientes sin autenticación
-                .requestMatchers(HttpMethod.GET, endpoint + "/login").hasAnyRole("ADMIN",  "USER") // Autenticación para login
                 .requestMatchers(HttpMethod.GET, "/api/v1/ingredientes/**").permitAll() // Permitir acceso a ingredientes sin autenticación
+                .requestMatchers(HttpMethod.GET, endpoint + "/login").hasAnyRole("ADMIN",  "USER") // Autenticación para login
                 .requestMatchers(HttpMethod.POST, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para POST
                 .requestMatchers(HttpMethod.PUT, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para PUT
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para DELETE
@@ -67,16 +67,16 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfiguration() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // URL del frontend
+        configuration.setAllowCredentials(true); // Permitir el uso de credenciales
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Asegúrate de que sea la URL correcta de tu frontend
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept")); // Encabezados permitidos
-        configuration.setExposedHeaders(Arrays.asList("Authorization")); // Encabezados expuestos al cliente
+        configuration.setAllowedHeaders(Arrays.asList("*")); // Encabezados permitidos
     
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+    
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // Usa BCrypt para encriptar contraseñas
