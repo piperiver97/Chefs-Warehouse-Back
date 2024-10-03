@@ -4,6 +4,7 @@ import dev.felipe.chefs_warehouse.models.Ingrediente;
 import dev.felipe.chefs_warehouse.services.IngredienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
 
 import java.util.List;
 
@@ -48,5 +49,23 @@ public class IngredienteController {
     @GetMapping("/categoria/{categoria}")
     public List<Ingrediente> obtenerIngredientesPorCategoria(@PathVariable String categoria) {
         return ingredienteService.obtenerIngredientesPorCategoria(categoria);
+    }
+
+    // Filtrar ingredientes por tipo de almacenamiento
+    @GetMapping("/almacenamiento/{almacenamiento}")
+    public List<Ingrediente> obtenerIngredientesPorAlmacenamiento(@PathVariable String almacenamiento) {
+        return ingredienteService.obtenerIngredientesPorAlmacenamiento(almacenamiento);
+    }
+
+    // Filtrar ingredientes por fecha de caducidad
+    @GetMapping("/fechaCaducidad/{fecha}")
+    public List<Ingrediente> obtenerIngredientesPorFechaCaducidad(@PathVariable String fecha) {
+        return ingredienteService.obtenerIngredientesPorFechaCaducidad(LocalDate.parse(fecha));
+    }
+
+    // Filtrar ingredientes por cantidad
+    @GetMapping("/cantidad/{kilos}/{gramos}/{unidades}")
+    public List<Ingrediente> obtenerIngredientesPorCantidad(@PathVariable int kilos, @PathVariable int gramos, @PathVariable int unidades) {
+        return ingredienteService.obtenerIngredientesPorCantidad(kilos, gramos, unidades);
     }
 }

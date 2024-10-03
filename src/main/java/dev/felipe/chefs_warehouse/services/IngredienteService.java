@@ -4,6 +4,8 @@ import dev.felipe.chefs_warehouse.models.Ingrediente;
 import dev.felipe.chefs_warehouse.repositories.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+
 
 import java.util.List;
 
@@ -49,5 +51,20 @@ public class IngredienteService {
     // Filtrar ingredientes por categoría
     public List<Ingrediente> obtenerIngredientesPorCategoria(String categoria) {
         return ingredienteRepository.findByCategoria(categoria);
+    }
+
+    // Filtrar ingredientes por almacenamiento
+    public List<Ingrediente> obtenerIngredientesPorAlmacenamiento(String almacenamiento) {
+        return ingredienteRepository.findByAlmacenamiento(almacenamiento);
+    }
+
+    // Filtrar ingredientes por fecha de caducidad
+    public List<Ingrediente> obtenerIngredientesPorFechaCaducidad(LocalDate fechaCaducidad) {
+        return ingredienteRepository.findByFechaDeCaducidad(fechaCaducidad);
+    }
+
+    // Filtrar ingredientes por cantidad
+    public List<Ingrediente> obtenerIngredientesPorCantidad(int kilos, int gramos, int unidades) {
+        return ingredienteRepository.findByKilosAndGramosAndUnidades(kilos, gramos, unidades);
     }
 }

@@ -13,21 +13,13 @@ public class Ingrediente {
     private Long id;
 
     private String nombre;
-    private int cantidad;
+    private int kilos;    // Cantidad en kilos
+    private int gramos;   // Cantidad en gramos
+    private int unidades; // Cantidad en unidades
     private LocalDate fechaDeCaducidad;
     private String almacenamiento;
-
-    // Nueva columna para la categoría
     private String categoria;
-    private String imagen;     // Nuevo campo para la imagen
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
+    private String imagen; // Imagen del ingrediente
 
     // Getters y setters
     public Long getId() {
@@ -46,12 +38,28 @@ public class Ingrediente {
         this.nombre = nombre;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getKilos() {
+        return kilos;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setKilos(int kilos) {
+        this.kilos = kilos;
+    }
+
+    public int getGramos() {
+        return gramos;
+    }
+
+    public void setGramos(int gramos) {
+        this.gramos = gramos;
+    }
+
+    public int getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
     }
 
     public LocalDate getFechaDeCaducidad() {
@@ -76,5 +84,13 @@ public class Ingrediente {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
