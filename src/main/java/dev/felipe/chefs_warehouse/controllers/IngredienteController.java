@@ -20,6 +20,16 @@ public class IngredienteController {
     public List<Ingrediente> obtenerTodosLosIngredientes() {
         return ingredienteService.obtenerTodosLosIngredientes();
     }
+    @GetMapping("/filtrar")
+    public List<Ingrediente> filtrarIngredientes(
+        @RequestParam(required = false) String nombre,
+        @RequestParam(required = false) String almacenamiento,
+        @RequestParam(required = false) LocalDate fechaCaducidad,
+        @RequestParam(required = false) String tipoMedida
+    ) {
+        return ingredienteService.filtrarIngredientes(
+            nombre, almacenamiento, fechaCaducidad, tipoMedida);
+    }
 
     // Obtener ingrediente por ID
     @GetMapping("/{id}")

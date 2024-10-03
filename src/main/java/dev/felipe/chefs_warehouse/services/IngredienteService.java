@@ -69,4 +69,9 @@ public class IngredienteService {
         return ingredienteRepository.findByCantidadKilosAndCantidadGramosAndCantidadUnidades(
             cantidadKilos, cantidadGramos, cantidadUnidades);
     }
+    public List<Ingrediente> filtrarIngredientes(String nombre, String almacenamiento, 
+                                                LocalDate fechaCaducidad, String tipoMedida) {
+        return ingredienteRepository.filtrarIngredientes(
+            nombre, almacenamiento, fechaCaducidad, tipoMedida);
+    }
 }
