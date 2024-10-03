@@ -10,5 +10,6 @@ public interface IngredienteRepository extends JpaRepository<Ingrediente, Long> 
     List<Ingrediente> findByCategoria(String categoria);
     List<Ingrediente> findByAlmacenamiento(String almacenamiento);
     List<Ingrediente> findByFechaDeCaducidad(LocalDate fechaDeCaducidad);
-    List<Ingrediente> findByKilosAndGramosAndUnidades(int kilos, int gramos, int unidades);
+    List<Ingrediente> findByCantidadKilosAndCantidadGramosAndCantidadUnidades(
+        Integer cantidadKilos, Integer cantidadGramos, Integer cantidadUnidades);
 }

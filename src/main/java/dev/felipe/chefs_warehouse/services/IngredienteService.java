@@ -5,8 +5,6 @@ import dev.felipe.chefs_warehouse.repositories.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-
-
 import java.util.List;
 
 @Service
@@ -64,7 +62,11 @@ public class IngredienteService {
     }
 
     // Filtrar ingredientes por cantidad
-    public List<Ingrediente> obtenerIngredientesPorCantidad(int kilos, int gramos, int unidades) {
-        return ingredienteRepository.findByKilosAndGramosAndUnidades(kilos, gramos, unidades);
+    public List<Ingrediente> obtenerIngredientesPorCantidad(
+            Integer cantidadKilos, 
+            Integer cantidadGramos, 
+            Integer cantidadUnidades) {
+        return ingredienteRepository.findByCantidadKilosAndCantidadGramosAndCantidadUnidades(
+            cantidadKilos, cantidadGramos, cantidadUnidades);
     }
 }

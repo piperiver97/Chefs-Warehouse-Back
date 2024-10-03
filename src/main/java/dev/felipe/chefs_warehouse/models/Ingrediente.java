@@ -1,25 +1,35 @@
 package dev.felipe.chefs_warehouse.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "ingredientes")  // Especifica el nombre exacto de la tabla
 public class Ingrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
-    private int kilos;    // Cantidad en kilos
-    private int gramos;   // Cantidad en gramos
-    private int unidades; // Cantidad en unidades
+    
+    @Column(name = "cantidad_kilos")
+    private Integer cantidadKilos;
+    
+    @Column(name = "cantidad_gramos")
+    private Integer cantidadGramos;
+    
+    @Column(name = "cantidad_unidades")
+    private Integer cantidadUnidades;
+    
+    @Column(name = "fecha_de_caducidad")
     private LocalDate fechaDeCaducidad;
+    
     private String almacenamiento;
     private String categoria;
-    private String imagen; // Imagen del ingrediente
+    private String imagen;
+    
+    @Column(name = "proveedor_id")
+    private Long proveedorId;
 
     // Getters y setters
     public Long getId() {
@@ -38,28 +48,28 @@ public class Ingrediente {
         this.nombre = nombre;
     }
 
-    public int getKilos() {
-        return kilos;
+    public Integer getCantidadKilos() {
+        return cantidadKilos;
     }
 
-    public void setKilos(int kilos) {
-        this.kilos = kilos;
+    public void setCantidadKilos(Integer cantidadKilos) {
+        this.cantidadKilos = cantidadKilos;
     }
 
-    public int getGramos() {
-        return gramos;
+    public Integer getCantidadGramos() {
+        return cantidadGramos;
     }
 
-    public void setGramos(int gramos) {
-        this.gramos = gramos;
+    public void setCantidadGramos(Integer cantidadGramos) {
+        this.cantidadGramos = cantidadGramos;
     }
 
-    public int getUnidades() {
-        return unidades;
+    public Integer getCantidadUnidades() {
+        return cantidadUnidades;
     }
 
-    public void setUnidades(int unidades) {
-        this.unidades = unidades;
+    public void setCantidadUnidades(Integer cantidadUnidades) {
+        this.cantidadUnidades = cantidadUnidades;
     }
 
     public LocalDate getFechaDeCaducidad() {
@@ -92,5 +102,13 @@ public class Ingrediente {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public Long getProveedorId() {
+        return proveedorId;
+    }
+
+    public void setProveedorId(Long proveedorId) {
+        this.proveedorId = proveedorId;
     }
 }
