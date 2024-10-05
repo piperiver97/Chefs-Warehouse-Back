@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/proveedores")
@@ -37,5 +37,28 @@ public class ProveedorControlador {
     @GetMapping("/categorias")
     public List<String> obtenerCategorias() {
         return proveedorServicio.obtenerCategorias();
+    }
+
+    // Nuevo método PUT para actualizar un proveedor existente
+    @PutMapping("/{id}")
+    public ResponseEntity<Proveedor> actualizarProveedor(@PathVariable Long id, @RequestBody Proveedor proveedorActualizado) {
+        Optional<Proveedor> proveedorExistenteOptional = proveedorServicio.obtenerProveedorPorId(id);
+
+        if (proveedorExistenteOptional.isEmpty()) {
+            // Si el proveedor no existe, devolver un error 404
+            return ResponseEntity.notFound().build();
+        }
+
+        Proveedor proveedorExistente = proveedorExistenteOptional.get();
+        // Actualizar los campos del proveedor existente con los nuevos datos
+        proveedorExistente.setNombre(proveedorActualizado.getNombre());
+        proveedorExistente.setTelefono(proveedorActualizado.getTelefono());
+        proveedorExistente.setCategoria(proveedorActualizado.getCategoria());
+
+        // Guardar el proveedor actualizado en la base de datos
+        Proveedor proveedorGuardado = proveedorServicio.guardarProveedor(proveedorExistente);
+
+        // Devolver el proveedor actualizado con un código 200 OK
+        return ResponseEntity.ok(proveedorGuardado);
     }
 }

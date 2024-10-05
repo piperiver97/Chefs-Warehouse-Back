@@ -40,4 +40,5 @@ public class ProveedorServicio {
     public List<String> obtenerCategorias() {
         return CATEGORIAS;
     }
+    
 }
