@@ -11,6 +11,13 @@ CREATE TABLE IF NOT EXISTS proveedores (
     nombre VARCHAR(100) NOT NULL,
     contacto VARCHAR(100) NOT NULL
 );
+-- Insertar datos de proveedores predeterminados
+INSERT INTO proveedor (nombre, contacto, direccion, telefono, correo_electronico, categoria) VALUES 
+(' INDEX CSS', 'Juan Perez', 'Calle 123', '555-1234', 'juan.perez@correo.com', 'Lácteos'),
+(' GIACO SAS', 'Ana Gómez', 'Avenida 45', '555-5678', 'ana.gomez@correo.com', 'Carnes'),
+(' F5 ORG', 'Carlos Lopez', 'Calle Falsa 456', '555-8765', 'carlos.lopez@correo.com', 'Vegetales'),
+(' MAKRO', 'Luis Martinez', 'Boulevard 89', '555-4321', 'luis.martinez@correo.com', 'Pescado'),
+(' WAREHOUSE CHEF SA', 'Laura Sánchez', 'Plaza 25', '555-6543', 'laura.sanchez@correo.com', 'Especias');
 
 -- Crear tabla de ingredientes
 CREATE TABLE IF NOT EXISTS ingredientes (
@@ -53,17 +60,6 @@ INSERT INTO proveedores (nombre, contacto) VALUES
 ('Proveedor A', 'contactoA@example.com'),
 ('Proveedor B', 'contactoB@example.com'),
 ('Proveedor C', 'contactoC@example.com');
-
--- Insertar datos en la tabla de ingredientes
-INSERT INTO ingredientes (nombre, cantidad_kilos, cantidad_gramos, cantidad_unidades, fecha_de_caducidad, almacenamiento, categoria, imagen, proveedor_id) VALUES
-('Tomate', 0, 500, 0, '2024-10-10', 'Refrigeración', 'Vegetales', 'tomate.jpg', 1),
-('Lechuga', 0, 300, 0, '2024-10-05', 'Refrigeración', 'Vegetales', 'lechuga.jpg', 1),
-('Pollo', 1, 0, 0, '2024-10-15', 'Congelado', 'Carnes', 'pollo.jpg', 2),
-('Cebolla', 0, 500, 10, '2024-11-01', 'Ambiente', 'Vegetales', 'cebolla.jpg', 3),
-('Arroz', 0, 2000, 0, '2025-05-01', 'Ambiente', 'Granos y Cereales', 'arroz.jpg', 1),
-('Leche', 0, 1000, 0, '2024-10-10', 'Frío', 'Lácteos', 'leche.jpg', 2),
-('Huevos', 0, 0, 12, '2024-10-22', 'Frío', 'Huevos', 'huevos.jpg', 3),
-('Sal', 0, 500, 0, '2026-10-01', 'Ambiente', 'Especias', 'sal.jpg', 1);
 
 -- Roles
 INSERT INTO roles (name) VALUES ('ROLE_USER');

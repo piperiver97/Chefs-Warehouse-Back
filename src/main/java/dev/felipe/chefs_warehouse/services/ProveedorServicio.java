@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// src/main/java/dev/felipe/chefs_warehouse/services/ProveedorServicio.java
+
 @Service
 public class ProveedorServicio {
 
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
+
+    private static final List<String> CATEGORIAS = List.of("Lácteos", "Carnes", "Vegetales", "Pescado", "Quesos","mariscos");
 
     public List<Proveedor> obtenerTodosLosProveedores() {
         return proveedorRepositorio.findAll();
@@ -30,5 +34,10 @@ public class ProveedorServicio {
 
     public void eliminarProveedor(Long id) {
         proveedorRepositorio.deleteById(id);
+    }
+
+    // Método para obtener las categorías
+    public List<String> obtenerCategorias() {
+        return CATEGORIAS;
     }
 }

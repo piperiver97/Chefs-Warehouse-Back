@@ -1,5 +1,3 @@
-// src/main/java/dev/felipe/chefs_warehouse/models/Proveedor.java
-
 package dev.felipe.chefs_warehouse.models;
 
 import jakarta.persistence.Entity;
@@ -13,13 +11,15 @@ public class Proveedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;         // Nombre del proveedor
-    private String contacto;       // Información de contacto
-    private String direccion;      // Dirección del proveedor
-    private String telefono;       // Número de teléfono
+    private String nombre;            // Nombre del proveedor
+    private String contacto;          // Información de contacto
+    private String direccion;         // Dirección del proveedor
+    private String telefono;          // Número de teléfono
     private String correoElectronico; // Correo electrónico
+    private String categoria;         // Categoría del proveedor (nuevo campo)
 
-    // Getters y setters
+    // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -66,5 +66,13 @@ public class Proveedor {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

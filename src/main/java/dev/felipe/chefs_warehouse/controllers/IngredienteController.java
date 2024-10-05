@@ -15,7 +15,6 @@ public class IngredienteController {
     @Autowired
     private IngredienteService ingredienteService;
 
-    // Obtener todos los ingredientes
     @GetMapping
     public List<Ingrediente> obtenerTodosLosIngredientes() {
         return ingredienteService.obtenerTodosLosIngredientes();

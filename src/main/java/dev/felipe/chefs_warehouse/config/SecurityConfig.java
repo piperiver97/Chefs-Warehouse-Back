@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para POST
                 .requestMatchers(HttpMethod.PUT, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para PUT
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/ingredientes/**").authenticated() // Requiere autenticación para DELETE
+                .requestMatchers(HttpMethod.GET, "/api/v1/proveedores/**").authenticated() // Requiere autenticación para DELETE
 
                 .anyRequest().authenticated()) // Otras solicitudes requieren autenticación
             .userDetailsService(jpaUserDetailsService)

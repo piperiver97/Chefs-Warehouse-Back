@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/v1/proveedores")
 public class ProveedorControlador {
@@ -31,5 +32,10 @@ public class ProveedorControlador {
     public ResponseEntity<Void> eliminarProveedor(@PathVariable Long id) {
         proveedorServicio.eliminarProveedor(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/categorias")
+    public List<String> obtenerCategorias() {
+        return proveedorServicio.obtenerCategorias();
     }
 }
