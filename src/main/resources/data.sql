@@ -1,8 +1,10 @@
 -- Limpiar las tablas existentes si es necesario
 DROP TABLE IF EXISTS roles_users;
+DROP TABLE IF EXISTS recetas_ingredientes;
+DROP TABLE IF EXISTS ingredientes;
+DROP TABLE IF EXISTS recetas;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS ingredientes;
 DROP TABLE IF EXISTS proveedores;
 
 -- Crear tabla de proveedores
@@ -110,3 +112,40 @@ INSERT INTO ingredientes (nombre, cantidad_kilos, cantidad_gramos, cantidad_unid
 ('Nata para Montar', 0, 0, 6, '2024-10-18', 'Frío', 'Lácteos', NULL, 2),
 ('Nata para Cocinar', 0, 0, 6, '2024-10-25', 'Frío', 'Lácteos', NULL, 2),
 ('Mantequilla', 0, 0, 5, '2024-10-20', 'Frío', 'Lácteos', NULL, 2);
+CREATE TABLE IF NOT EXISTS recetas (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    tiempo_preparacion INT NOT NULL,
+    tiempo_coccion INT NOT NULL,
+    porciones INT NOT NULL,
+    dificultad VARCHAR(20) NOT NULL,
+    elaboracion TEXT NOT NULL,
+    tecnicas_cocina TEXT,
+    imagen VARCHAR(255)
+);
+
+-- Tabla intermedia para la relación entre recetas e ingredientes
+CREATE TABLE IF NOT EXISTS recetas_ingredientes (
+    receta_id BIGINT,
+    ingrediente_id BIGINT,
+    cantidad FLOAT NOT NULL,
+    unidad_medida VARCHAR(20) NOT NULL,
+    FOREIGN KEY (receta_id) REFERENCES recetas(id),
+    FOREIGN KEY (ingrediente_id) REFERENCES ingredientes(id),
+    PRIMARY KEY (receta_id, ingrediente_id)
+);
+-- Insertar recetas
+INSERT INTO recetas (nombre, tiempo_preparacion, tiempo_coccion, porciones, dificultad, elaboracion, tecnicas_cocina) VALUES 
+('Paella Valenciana', 30, 45, 4, 'Media', 'Sofría el pollo y conejo. Añada verduras y arroz. Agregue caldo y azafrán. Cocine a fuego lento.', 'Sofrito, cocción de arroz'),
+('Gazpacho Andaluz', 20, 0, 6, 'Fácil', 'Triture tomates, pimiento, pepino y ajo. Añada aceite de oliva y vinagre. Enfríe antes de servir.', 'Triturado, emulsión'),
+('Tortilla de Patatas', 15, 20, 4, 'Fácil', 'Fría las patatas y cebolla. Bata los huevos. Mezcle y cocine en sartén por ambos lados.', 'Fritura, volteo'),
+('Cocido Madrileño', 30, 120, 6, 'Media', 'Cocine garbanzos con carnes y verduras. Prepare sopa con el caldo. Sirva en tres vuelcos.', 'Cocción lenta, escalonada'),
+('Fabada Asturiana', 20, 180, 4, 'Media', 'Remoje las fabes. Cocine con chorizo, morcilla y lacón. Añada azafrán y pimentón.', 'Cocción lenta, remojo previo'),
+('Crema Catalana', 20, 10, 4, 'Media', 'Prepare crema con leche, huevos y canela. Enfríe y caramelice el azúcar por encima.', 'Templado, caramelizado');
+
+-- Insertar relaciones entre recetas e ingredientes (ejemplo para la paella)
+INSERT INTO recetas_ingredientes (receta_id, ingrediente_id, cantidad, unidad_medida) VALUES
+(1, 1, 2, 'unidades'), -- Cebolla para la paella
+(1, 2, 4, 'unidades'), -- Tomate para la paella
+(2, 1, 1, 'unidad'),   -- Cebolla para el gazpacho
+(2, 2, 6, 'unidades'); -- Tomate para el gazpacho
