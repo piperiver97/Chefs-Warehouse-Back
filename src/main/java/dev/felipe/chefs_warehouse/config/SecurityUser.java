@@ -1,4 +1,4 @@
-package dev.felipe.chefs_warehouse.models;
+package dev.felipe.chefs_warehouse.config;
 
 
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import dev.felipe.chefs_warehouse.models.Role;
+import dev.felipe.chefs_warehouse.models.User;
 
 public class SecurityUser implements UserDetails {
 

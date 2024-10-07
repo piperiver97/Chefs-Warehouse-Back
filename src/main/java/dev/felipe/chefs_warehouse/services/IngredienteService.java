@@ -10,25 +10,25 @@ import java.util.List;
 @Service
 public class IngredienteService {
 
-    @Autowired
-    private IngredienteRepository ingredienteRepository;
+    private final IngredienteRepository ingredienteRepository;
 
-    // Obtener todos los ingredientes
+    @Autowired
+    public IngredienteService(IngredienteRepository ingredienteRepository) {
+        this.ingredienteRepository = ingredienteRepository;
+    }
+
     public List<Ingrediente> obtenerTodosLosIngredientes() {
         return ingredienteRepository.findAll();
     }
 
-    // Obtener ingrediente por ID
     public Ingrediente obtenerIngredientePorId(Long id) {
         return ingredienteRepository.findById(id).orElse(null);
     }
 
-    // Crear un nuevo ingrediente
     public Ingrediente guardarIngrediente(Ingrediente ingrediente) {
         return ingredienteRepository.save(ingrediente);
     }
 
-    // Actualizar un ingrediente
     public Ingrediente actualizarIngrediente(Long id, Ingrediente ingrediente) {
         if (!ingredienteRepository.existsById(id)) {
             return null;
@@ -37,7 +37,6 @@ public class IngredienteService {
         return ingredienteRepository.save(ingrediente);
     }
 
-    // Eliminar un ingrediente
     public boolean eliminarIngrediente(Long id) {
         if (ingredienteRepository.existsById(id)) {
             ingredienteRepository.deleteById(id);
@@ -46,22 +45,18 @@ public class IngredienteService {
         return false;
     }
 
-    // Filtrar ingredientes por categoría
     public List<Ingrediente> obtenerIngredientesPorCategoria(String categoria) {
         return ingredienteRepository.findByCategoria(categoria);
     }
 
-    // Filtrar ingredientes por almacenamiento
     public List<Ingrediente> obtenerIngredientesPorAlmacenamiento(String almacenamiento) {
         return ingredienteRepository.findByAlmacenamiento(almacenamiento);
     }
 
-    // Filtrar ingredientes por fecha de caducidad
     public List<Ingrediente> obtenerIngredientesPorFechaCaducidad(LocalDate fechaCaducidad) {
         return ingredienteRepository.findByFechaDeCaducidad(fechaCaducidad);
     }
 
-    // Filtrar ingredientes por cantidad
     public List<Ingrediente> obtenerIngredientesPorCantidad(
             Integer cantidadKilos, 
             Integer cantidadGramos, 
@@ -69,6 +64,7 @@ public class IngredienteService {
         return ingredienteRepository.findByCantidadKilosAndCantidadGramosAndCantidadUnidades(
             cantidadKilos, cantidadGramos, cantidadUnidades);
     }
+    
     public List<Ingrediente> filtrarIngredientes(String nombre, String almacenamiento, 
                                                 LocalDate fechaCaducidad, String tipoMedida) {
         return ingredienteRepository.filtrarIngredientes(

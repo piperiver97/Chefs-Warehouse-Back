@@ -1,6 +1,6 @@
 package dev.felipe.chefs_warehouse.services;
 
-import dev.felipe.chefs_warehouse.models.SecurityUser;
+import dev.felipe.chefs_warehouse.config.SecurityUser;
 import dev.felipe.chefs_warehouse.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

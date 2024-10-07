@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "ingredientes")  // Especifica el nombre exacto de la tabla
+@Table(name = "ingredientes")  
 public class Ingrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,22 @@ public class Ingrediente {
     @Column(name = "proveedor_id")
     private Long proveedorId;
 
-    // Getters y setters
+    // Constructor
+    public Ingrediente(String nombre, String almacenamiento, LocalDate fechaDeCaducidad, 
+                       Integer cantidadKilos, Integer cantidadGramos, Integer cantidadUnidades) {
+        this.nombre = nombre;
+        this.almacenamiento = almacenamiento;
+        this.fechaDeCaducidad = fechaDeCaducidad;
+        this.cantidadKilos = cantidadKilos;
+        this.cantidadGramos = cantidadGramos;
+        this.cantidadUnidades = cantidadUnidades;
+    }
+
+    // Default constructor
+    public Ingrediente() {
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }

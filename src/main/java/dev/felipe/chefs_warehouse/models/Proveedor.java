@@ -11,14 +11,13 @@ public class Proveedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;            // Nombre del proveedor
-    private String contacto;          // Información de contacto
-    private String direccion;         // Dirección del proveedor
-    private String telefono;          // Número de teléfono
-    private String correoElectronico; // Correo electrónico
-    private String categoria;         // Categoría del proveedor (nuevo campo)
+    private String nombre;          
+    private String contacto;          
+    private String direccion;         
+    private String telefono;          
+    private String correoElectronico; 
+    private String categoria;         
 
-    // Getters y Setters
 
     public Long getId() {
         return id;
