@@ -54,25 +54,25 @@ Antes de ejecutar este proyecto, asegúrate de tener lo siguiente instalado:
 Los principales endpoints disponibles en la API son:
 
 - **Ingredientes:**
-  - `GET /api/ingredients`: Listar todos los ingredientes.
-  - `POST /api/ingredients`: Crear un nuevo ingrediente.
-  - `GET /api/ingredients/{id}`: Obtener los detalles de un ingrediente específico.
-  - `PUT /api/ingredients/{id}`: Actualizar un ingrediente.
-  - `DELETE /api/ingredients/{id}`: Eliminar un ingrediente.
+  - `GET /api/v1/ingredients`: Listar todos los ingredientes.
+  - `POST /api/v1/ingredients`: Crear un nuevo ingrediente.
+  - `GET /api/v1/ingredients/{id}`: Obtener los detalles de un ingrediente específico.
+  - `PUT /api/v1/ingredients/{id}`: Actualizar un ingrediente.
+  - `DELETE /api/v1/ingredients/{id}`: Eliminar un ingrediente.
 
 - **Proveedores:**
-  - `GET /api/suppliers`: Listar todos los proveedores.
-  - `POST /api/suppliers`: Crear un nuevo proveedor.
-  - `GET /api/suppliers/{id}`: Obtener los detalles de un proveedor específico.
-  - `PUT /api/suppliers/{id}`: Actualizar un proveedor.
-  - `DELETE /api/suppliers/{id}`: Eliminar un proveedor.
+  - `GET /api/v1/proveedores`: Listar todos los proveedores.
+  - `POST /api/v1/proveedores`: Crear un nuevo proveedor.
+  - `GET /api/v1/proveedores/{id}`: Obtener los detalles de un proveedor específico.
+  - `PUT /api/v1/proveedores/{id}`: Actualizar un proveedor.
+  - `DELETE /api/v1/proveedores{id}`: Eliminar un proveedor.
 
 - **Recetas:**
-  - `GET /api/recipes`: Listar todas las recetas.
-  - `POST /api/recipes`: Crear una nueva receta.
-  - `GET /api/recipes/{id}`: Obtener los detalles de una receta específica.
-  - `PUT /api/recipes/{id}`: Actualizar una receta.
-  - `DELETE /api/recipes/{id}`: Eliminar una receta.
+  - `GET /api/v1/recetas`: Listar todas las recetas.
+  - `POST /api/v1/recetas`: Crear una nueva receta.
+  - `GET /api/v1/recetas/{id}`: Obtener los detalles de una receta específica.
+  - `PUT /api/v1/recetas/{id}`: Actualizar una receta.
+  - `DELETE /api/v1/recetas/{id}`: Eliminar una receta.
 
 ## Pruebas
 
