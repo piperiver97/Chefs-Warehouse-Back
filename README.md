@@ -18,6 +18,7 @@ Antes de ejecutar este proyecto, asegúrate de tener lo siguiente instalado:
 - [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 - [Maven](https://maven.apache.org/install.html)
 - [MySQL](https://dev.mysql.com/downloads/installer/)
+- [SpringBoot](https://start.spring.io/)
 
 ## Configuración del Proyecto
 
